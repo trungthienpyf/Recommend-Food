@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.recommendfood.DataBase.FoodDao;
+
 public class Login extends AppCompatActivity {
 
     @Override
@@ -17,7 +19,7 @@ public class Login extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(Login.this, TestActivy.class);
+                Intent myIntent = new Intent(Login.this, FoodCRUD.class);
                 myIntent.putExtra("key", '1'); //Optional parameters
                 Login.this.startActivity(myIntent);
             }

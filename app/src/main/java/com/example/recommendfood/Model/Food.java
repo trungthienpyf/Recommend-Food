@@ -9,14 +9,14 @@ public class Food {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
-    private String img;
+
     private String calo;
     private String session;
 
-    public Food(int id, String name, String img, String calo, String session) {
-        this.id = id;
+    public Food( String name, String calo, String session) {
+
         this.name = name;
-        this.img = img;
+
         this.calo = calo;
         this.session = session;
     }
@@ -29,9 +29,9 @@ public class Food {
         this.name = name;
     }
 
-    public void setImg(String img) {
-        this.img = img;
-    }
+//    public void setImg(String img) {
+//        this.img = img;
+//    }
 
     public void setCalo(String calo) {
         this.calo = calo;
@@ -49,9 +49,9 @@ public class Food {
         return name;
     }
 
-    public String getImg() {
-        return img;
-    }
+//    public String getImg() {
+//        return img;
+//    }
 
     public String getCalo() {
         return calo;
