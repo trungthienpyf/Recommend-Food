@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,10 +36,21 @@ public class FoodApdater extends RecyclerView.Adapter<FoodApdater.FoodViewHolder
     private List<Food> mListUser;
     ProgressDialog progressDialog;
     StorageReference storageReference;
+    private IClickItemFood iClickItemFood;
+    public interface IClickItemFood{
+        void deleleFood(Food food);
+    }
+
     public void setData(List<Food> list){
         this.mListUser=list;
         notifyDataSetChanged();
+
     }
+
+    public FoodApdater(IClickItemFood iClickItemFood) {
+        this.iClickItemFood = iClickItemFood;
+    }
+
     @NonNull
     @Override
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,7 +62,7 @@ public class FoodApdater extends RecyclerView.Adapter<FoodApdater.FoodViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
-        Food food= mListUser.get(position);
+       final Food food= mListUser.get(position);
         if(food ==null){
 
             return;
@@ -58,6 +70,7 @@ public class FoodApdater extends RecyclerView.Adapter<FoodApdater.FoodViewHolder
         holder.name.setText(food.getName());
 
         storageReference = FirebaseStorage.getInstance().getReference("images/"+food.getId());
+
 
         try {
             File file = File.createTempFile("tempfile",".jpg");
@@ -80,6 +93,12 @@ public class FoodApdater extends RecyclerView.Adapter<FoodApdater.FoodViewHolder
 
         holder.calo.setText(food.getCalo());
         holder.session.setText(food.getSession());
+        holder.btnDelele.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickItemFood.deleleFood(food);
+            }
+        });
     }
 
     @Override
@@ -97,12 +116,14 @@ public class FoodApdater extends RecyclerView.Adapter<FoodApdater.FoodViewHolder
         TextView calo;
         TextView session;
         ImageView img;
+        Button btnDelele;
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.food_name);
             calo=itemView.findViewById(R.id.food_calo);
             session=itemView.findViewById(R.id.food_session);
             img=itemView.findViewById(R.id.img);
+            btnDelele=itemView.findViewById(R.id.btn_delete);
         }
 
 

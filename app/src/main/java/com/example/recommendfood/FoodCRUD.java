@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -70,7 +72,14 @@ public class FoodCRUD extends AppCompatActivity {
         setContentView(binding.getRoot());
         initUi();
 
-        foodApdater =new FoodApdater();
+        foodApdater =new FoodApdater(new FoodApdater.IClickItemFood() {
+            @Override
+            public void deleleFood(Food food) {
+                clickDeleteFood(food);
+
+
+            }
+        });
         mListUser=new ArrayList<>();
 
         getAllUser();
@@ -89,8 +98,17 @@ public class FoodCRUD extends AppCompatActivity {
                 new ActivityResultCallback<Uri>() {
                     @Override
                     public void onActivityResult(Uri result) {
-                        imageUri =result;
-                        binding.imageView.setImageURI(result);
+
+
+                        if(result==null){
+                            return;
+
+
+                        }
+                        else{
+                            imageUri =result;
+                            binding.imageView.setImageURI(result);
+                        }
                     }
                 }
         );
@@ -107,33 +125,47 @@ public class FoodCRUD extends AppCompatActivity {
             public void onClick(View view) {
                 addUser();
 
-                CharSequence text = "Hello toast!";
-                int duration = Toast.LENGTH_SHORT;
 
-                Toast toast = Toast.makeText(FoodCRUD.this, text, duration);
-                toast.show();
                 uploadImage();
 
             }
         });
 
     }
+
+    private void clickDeleteFood(Food food) {
+        new AlertDialog.Builder(this).setTitle("Xóa món ăn")
+                .setMessage("Bạn có chắc chắn muốn xóa không?")
+                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                AppDatabase.getInstance(FoodCRUD.this).foodDao().delete(food);
+                getAllUser();
+                Toast.makeText(FoodCRUD.this,"Xóa thành công",Toast.LENGTH_SHORT).show();
+            }
+        }).setNegativeButton("Không",null).show();
+    }
+
     private void addUser() {
         String strName=edtFoodName.getText().toString().trim();
         String strCalo=edtFoodCalo.getText().toString().trim();
         String strSession=edtFoodSession.getText().toString().trim();
 
         if(TextUtils.isEmpty(strName)|| TextUtils.isEmpty(strCalo)||TextUtils.isEmpty(strSession)){
+            Toast.makeText(FoodCRUD.this,"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
             return;
+        }else{
+            Food food =new Food(strName,strCalo,strSession);
+            AppDatabase.getInstance(this).foodDao().insertUser(food);
+            Toast.makeText(this,"Thêm thành công",Toast.LENGTH_SHORT).show();
+            edtFoodName.setText("");
+            edtFoodCalo.setText("");
+            edtFoodSession.setText("");
+            getAllUser();
         }
 
-        Food food =new Food(strName,strCalo,strSession);
-        AppDatabase.getInstance(this).foodDao().insertUser(food);
-        Toast.makeText(this,"Add user success fully",Toast.LENGTH_SHORT).show();
-        edtFoodName.setText("");
-        edtFoodCalo.setText("");
-        edtFoodSession.setText("");
-       getAllUser();
+
     }
     private  void getAllUser(){
         mListUser=AppDatabase.getInstance(this).foodDao().getAllFood();
@@ -141,47 +173,50 @@ public class FoodCRUD extends AppCompatActivity {
         foodApdater.setData(mListUser);
     }
 
-    private void loadImage() throws IOException {
-        progressDialog =new ProgressDialog(FoodCRUD.this);
-        progressDialog.setMessage("fetch..");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
-        storageReference =FirebaseStorage.getInstance().getReference("images/");
-        File file= File.createTempFile("tempfile",".jpg");
-        storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                if(progressDialog.isShowing()){
-
-                    progressDialog.dismiss();
-                    Bitmap bitmap= BitmapFactory.decodeFile(file.getAbsolutePath());
-                    binding.imageView.setImageBitmap(bitmap);
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-
-                if (progressDialog.isShowing())
-                    progressDialog.dismiss();
-                Toast.makeText(FoodCRUD.this,"Failed to Upload",Toast.LENGTH_SHORT).show();
-
-
-            }
-        });;
-
-    }
+//    private void loadImage() throws IOException {
+//        progressDialog =new ProgressDialog(FoodCRUD.this);
+//        progressDialog.setMessage("fetch..");
+//        progressDialog.setCancelable(false);
+//        progressDialog.show();
+//
+//        storageReference =FirebaseStorage.getInstance().getReference("images/");
+//        File file= File.createTempFile("tempfile",".jpg");
+//        storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+//            @Override
+//            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                if(progressDialog.isShowing()){
+//
+//                    progressDialog.dismiss();
+//                    Bitmap bitmap= BitmapFactory.decodeFile(file.getAbsolutePath());
+//                    binding.imageView.setImageBitmap(bitmap);
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//
+//
+//                if (progressDialog.isShowing())
+//                    progressDialog.dismiss();
+//                Toast.makeText(FoodCRUD.this,"Failed to Upload",Toast.LENGTH_SHORT).show();
+//
+//
+//            }
+//        });;
+//
+//    }
     private void uploadImage() {
 
         progressDialog = new ProgressDialog(FoodCRUD.this);
         progressDialog.setTitle("Uploading File....");
         progressDialog.show();
 
-        int sum= mListUser.size() >=1 ? mListUser.size() +1 : 1;
+        List<Food> getLast;
+        getLast=AppDatabase.getInstance(FoodCRUD.this).foodDao().lastData();
+        int lastId=getLast.get(0).getId()+1;
 
-        storageReference = FirebaseStorage.getInstance().getReference("images/"+sum);
+
+        storageReference = FirebaseStorage.getInstance().getReference("images/"+lastId);
 
 
         storageReference.putFile(imageUri)
