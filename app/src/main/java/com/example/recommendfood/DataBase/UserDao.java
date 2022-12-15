@@ -7,26 +7,15 @@ import androidx.room.Query;
 
 import com.example.recommendfood.Model.User;
 
-import java.util.List;
-
 @Dao
 public interface UserDao {
-    @Query("SELECT * FROM user")
-    List<User> getListUser();
+    @Query("SELECT * FROM user where tk= (:tk) and password = (:password)")
+    User getUser(String tk, String password);
 
-//    @Query("SELECT * FROM user WHERE uid IN (:userIds)")
-//    List<User> loadAllByIds(int[] userIds);
-//
-//    @Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
-//            "last_name LIKE :last LIMIT 1")
-//    User findByName(String first, String last);
+
 
     @Insert
-    void insertAll(User... users);
-
-    @Insert
-    void insertUser(User users);
-
+    void registerUser(User users);
 
     @Delete
     void delete(User user);
