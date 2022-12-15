@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "379259262095",
+    "project_id": "image-9f319",
+    "storage_bucket": "image-9f319.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:379259262095:android:74dc40293a44a44581ccfa",
+        "android_client_info": {
+          "package_name": "com.example.recommendfood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "379259262095-lk5s8l8fq1kj38c2tq90cs3dvjic4gf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDhvJYd1QKOgViagm1MvTEw4ATiU6MXAc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "379259262095-lk5s8l8fq1kj38c2tq90cs3dvjic4gf5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

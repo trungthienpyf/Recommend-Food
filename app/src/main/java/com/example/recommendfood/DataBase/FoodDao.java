@@ -32,5 +32,7 @@ public interface FoodDao {
 
     @Delete
     void delete(Food food);
+    @Query("SELECT * FROM foods ORDER BY id DESC LIMIT 1")
+    List<Food> lastData();
 }
 

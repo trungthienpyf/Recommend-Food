@@ -16,6 +16,8 @@ import com.example.recommendfood.DataBase.UserDao;
 import com.example.recommendfood.Model.Food;
 import com.example.recommendfood.Model.User;
 
+import com.example.recommendfood.DataBase.FoodDao;
+
 public class Login extends AppCompatActivity {
     EditText txtUsername, txtpassword;
     Button btnDangKy, btnDangNhap;
@@ -58,8 +60,14 @@ public class Login extends AppCompatActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(Login.this, Register.class);
                 startActivity(intent);
+
+                Intent myIntent = new Intent(Login.this, FoodCRUD.class);
+                myIntent.putExtra("key", '1'); //Optional parameters
+                Login.this.startActivity(myIntent);
+
             }
         });
     }

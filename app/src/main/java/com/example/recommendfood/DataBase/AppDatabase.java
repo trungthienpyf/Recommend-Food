@@ -12,7 +12,12 @@ import com.example.recommendfood.Model.User;
 @Database(entities = {User.class, Food.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
+
     private static final String DATABASE_NAME="Recommend15518881.db";
+
+
+    private static final String DATABASE_NAME="Recommend10.db";
+
     private static AppDatabase instance;
 
     public static synchronized AppDatabase getInstance(Context context){
