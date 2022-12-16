@@ -1,9 +1,19 @@
 package com.example.recommendfood.Model;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "foods")
+@Entity(tableName = "foods", foreignKeys = {
+        @ForeignKey(
+                entity = CategoryFood.class,
+                parentColumns = {"id"},
+                childColumns = {"category_id"},
+                onDelete = ForeignKey.CASCADE,
+                onUpdate = ForeignKey.CASCADE
+        ),
+
+})
 public class Food {
 
     @PrimaryKey(autoGenerate = true)
@@ -12,13 +22,25 @@ public class Food {
 
     private String calo;
     private String session;
+    private  int category_id;
 
-    public Food( String name, String calo, String session) {
-
+    public Food(String name, String calo, String session, String category_id) {
         this.name = name;
-
         this.calo = calo;
         this.session = session;
+        this.category_id = Integer.parseInt(category_id);
+    }
+
+    public Food() {
+
+    }
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
     }
 
     public void setId(int id) {

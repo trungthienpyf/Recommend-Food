@@ -1,25 +1,22 @@
 package com.example.recommendfood.Adapter;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.recommendfood.FoodCRUD;
+
+import com.example.recommendfood.Model.CategoryAndFood;
+import com.example.recommendfood.Model.CategoryFood;
 import com.example.recommendfood.Model.Food;
-import com.example.recommendfood.Model.User;
 import com.example.recommendfood.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,7 +30,7 @@ import java.util.List;
 
 public class FoodApdater extends RecyclerView.Adapter<FoodApdater.FoodViewHolder>{
 
-    private List<Food> mListUser;
+    private List<CategoryAndFood> mListUser;
     ProgressDialog progressDialog;
     StorageReference storageReference;
     private IClickItemFood iClickItemFood;
@@ -41,7 +38,7 @@ public class FoodApdater extends RecyclerView.Adapter<FoodApdater.FoodViewHolder
         void deleleFood(Food food);
     }
 
-    public void setData(List<Food> list){
+    public void setData(List<CategoryAndFood> list){
         this.mListUser=list;
         notifyDataSetChanged();
 
@@ -62,14 +59,14 @@ public class FoodApdater extends RecyclerView.Adapter<FoodApdater.FoodViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
-       final Food food= mListUser.get(position);
+       final CategoryAndFood food= mListUser.get(position);
         if(food ==null){
 
             return;
         }
-        holder.name.setText(food.getName());
+        holder.name.setText(food.food.getName());
 
-        storageReference = FirebaseStorage.getInstance().getReference("images/"+food.getId());
+        storageReference = FirebaseStorage.getInstance().getReference("images/"+food.food.getId());
 
 
         try {
@@ -91,12 +88,13 @@ public class FoodApdater extends RecyclerView.Adapter<FoodApdater.FoodViewHolder
         }
 
 
-        holder.calo.setText(food.getCalo());
-        holder.session.setText(food.getSession());
+        holder.calo.setText(food.food.getCalo());
+        holder.session.setText(food.food.getSession());
+        holder.category.setText(food.categoryFoodListList.get(0).getName());
         holder.btnDelele.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iClickItemFood.deleleFood(food);
+                iClickItemFood.deleleFood(food.food);
             }
         });
     }
@@ -115,6 +113,7 @@ public class FoodApdater extends RecyclerView.Adapter<FoodApdater.FoodViewHolder
         TextView name;
         TextView calo;
         TextView session;
+        TextView category;
         ImageView img;
         Button btnDelele;
         public FoodViewHolder(@NonNull View itemView) {
@@ -122,6 +121,7 @@ public class FoodApdater extends RecyclerView.Adapter<FoodApdater.FoodViewHolder
             name=itemView.findViewById(R.id.food_name);
             calo=itemView.findViewById(R.id.food_calo);
             session=itemView.findViewById(R.id.food_session);
+            category=itemView.findViewById(R.id.categoryfood_name);
             img=itemView.findViewById(R.id.img);
             btnDelele=itemView.findViewById(R.id.btn_delete);
         }

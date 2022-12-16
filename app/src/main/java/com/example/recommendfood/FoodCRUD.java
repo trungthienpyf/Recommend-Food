@@ -2,10 +2,8 @@ package com.example.recommendfood;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,39 +11,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.recommendfood.Adapter.FoodApdater;
-import com.example.recommendfood.Adapter.UserApdater;
 import com.example.recommendfood.DataBase.AppDatabase;
+import com.example.recommendfood.Model.CategoryAndFood;
+import com.example.recommendfood.Model.CategoryFood;
 import com.example.recommendfood.Model.Food;
-import com.example.recommendfood.Model.User;
 import com.example.recommendfood.databinding.CrudFoodIndexBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class FoodCRUD extends AppCompatActivity {
 
@@ -54,16 +44,19 @@ public class FoodCRUD extends AppCompatActivity {
     EditText edtFoodName;
     EditText edtFoodCalo;
     EditText edtFoodSession;
+    Spinner spin;
     Button btnAddUser;
     Button btnSelect;
     RecyclerView rcvUser;
     ActivityResultLauncher<String> mTakePhoto;
     FoodApdater foodApdater;
     List<Food> mListUser;
+    List<CategoryFood> categoryList;
+    List<String> spinnerList;
     Uri imageUri;
     StorageReference storageReference;
     ProgressDialog progressDialog;
-
+    public  int item;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -83,7 +76,22 @@ public class FoodCRUD extends AppCompatActivity {
         mListUser=new ArrayList<>();
 
         getAllUser();
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                CategoryFood categoryFood1 = ((CategoryFood) categoryList.get(i));
 
+                item = categoryFood1.getId();
+                Toast.makeText(FoodCRUD.this,""+item,Toast.LENGTH_SHORT).show();
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this);
 
@@ -148,6 +156,7 @@ public class FoodCRUD extends AppCompatActivity {
     }
 
     private void addUser() {
+
         String strName=edtFoodName.getText().toString().trim();
         String strCalo=edtFoodCalo.getText().toString().trim();
         String strSession=edtFoodSession.getText().toString().trim();
@@ -156,7 +165,11 @@ public class FoodCRUD extends AppCompatActivity {
             Toast.makeText(FoodCRUD.this,"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_SHORT).show();
             return;
         }else{
-            Food food =new Food(strName,strCalo,strSession);
+
+
+             Food food =new Food(strName,strCalo,strSession,(item)+"");
+
+
             AppDatabase.getInstance(this).foodDao().insertUser(food);
             Toast.makeText(this,"Thêm thành công",Toast.LENGTH_SHORT).show();
             edtFoodName.setText("");
@@ -168,9 +181,23 @@ public class FoodCRUD extends AppCompatActivity {
 
     }
     private  void getAllUser(){
-        mListUser=AppDatabase.getInstance(this).foodDao().getAllFood();
 
-        foodApdater.setData(mListUser);
+        List<CategoryAndFood> allList=AppDatabase.getInstance(this).foodDao().categoryAndFood();
+        //mListUser=AppDatabase.getInstance(this).foodDao().getAllFood();
+        categoryList=AppDatabase.getInstance(this).categoryFoodDao().getAllCategory();
+        spinnerList=new ArrayList<>();
+        for (int i = 0; i<categoryList.size(); i++) {
+
+
+            String name_promotion = categoryList.get(i).getName();
+
+            spinnerList.add(name_promotion);
+        }
+        spin.setAdapter(new ArrayAdapter<>(this,
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item
+                ,spinnerList));
+
+        foodApdater.setData(allList);
     }
 
 //    private void loadImage() throws IOException {
@@ -251,6 +278,7 @@ public class FoodCRUD extends AppCompatActivity {
         btnAddUser=findViewById(R.id.btn_addUser);
       //  btnSelect=findViewById(R.id.btn_selectImg);
         rcvUser=findViewById(R.id.rcv_user);
+        spin=findViewById(R.id.spinner);
 
     }
 

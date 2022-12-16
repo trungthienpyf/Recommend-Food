@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="category_name" type="id" />
+    <item name="edt_category_name" type="id" />
+    <item name="btn_add_category" type="id" />
+</resources>
