@@ -6,15 +6,14 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 
-import com.example.recommendfood.Model.CategoryAndFood;
-import com.example.recommendfood.Model.Food;
+import com.example.recommendfood.Model.CategoryFood;
 
 import java.util.List;
 
 @Dao
-public interface FoodDao {
-    @Query("SELECT * FROM foods")
-    List<Food> getAllFood();
+public interface CategoryFoodDao {
+    @Query("SELECT * FROM category_foods")
+    List<CategoryFood> getAllCategory();
 
     //    @Query("SELECT * FROM user WHERE uid IN (:userIds)")
 //    List<User> loadAllByIds(int[] userIds);
@@ -25,17 +24,15 @@ public interface FoodDao {
 
 
     @Insert
-    void insertAll(Food... foods);
+    void insertAll(CategoryFood... category);
 
     @Insert
-    void insertUser(Food foods);
+    void insertCategory(CategoryFood category);
 
 
     @Delete
-    void delete(Food food);
-    @Query("SELECT * FROM foods ORDER BY id DESC LIMIT 1")
-    List<Food> lastData();
-    @Query("SELECT * FROM foods")
-    List<CategoryAndFood> categoryAndFood();
+    void delete(CategoryFood category);
+//    @Query("SELECT * FROM category_foods ORDER BY id DESC LIMIT 1")
+//    List<CategoryFood> lastData();
 }
 

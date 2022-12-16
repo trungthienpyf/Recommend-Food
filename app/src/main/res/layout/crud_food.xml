@@ -27,9 +27,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lượng calo"
+        android:text="Thể loại"
         android:textSize="13dp"
         android:textColor="@android:color/darker_gray"/>
+        <TextView
+            android:id="@+id/categoryfood_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lượng calo"
+            android:textSize="13dp"
+            android:textColor="@android:color/darker_gray"/>
     <TextView
         android:id="@+id/food_calo"
         android:layout_width="match_parent"
