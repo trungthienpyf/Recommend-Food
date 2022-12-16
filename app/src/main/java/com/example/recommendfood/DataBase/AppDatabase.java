@@ -10,18 +10,18 @@ import com.example.recommendfood.Model.CategoryFood;
 import com.example.recommendfood.Model.Food;
 import com.example.recommendfood.Model.User;
 
-@Database(entities = {User.class,CategoryFood.class, Food.class}, version = 1)
+@Database(entities = {
+        User.class,
+        CategoryFood.class,
+        Food.class
+}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
 
 
-    private static final String DATABASE_NAME="Recommend15518881.db";
+    private static final String DATABASE_NAME="Recommend155188281.db";
 
 
-    private static final String DATABASE_NAME="Recommend10.db";
-
-
-    private static final String DATABASE_NAME="Recommend17.db";
 
     private static AppDatabase instance;
 
