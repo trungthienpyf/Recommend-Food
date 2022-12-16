@@ -1,9 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".Register">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txtDangKy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="554dp"
+        android:gravity="center"
+        android:text="ĐĂNG KÝ TÀI KHOẢN"
+        android:textColor="@color/purple_700"
+        android:textSize="26dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/repassword"
+        android:layout_width="366dp"
+        android:layout_height="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="203dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="358dp"
+        android:hint="Nhập lại mật khẩu" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="372dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="86dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="477dp"
+        android:hint="Tên đăng nhập" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="368dp"
+        android:layout_height="43dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="416dp"
+        android:hint="Mật khẩu" />
+
+    <EditText
+        android:id="@+id/edtTuoi"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="264dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="296dp"
+        android:hint="Nhập tuổi" />
+
+    <EditText
+        android:id="@+id/edtHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="320dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="240dp"
+        android:hint="Nhập chiều cao của bạn" />
+
+    <EditText
+        android:id="@+id/edtWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="378dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="185dp"
+        android:hint="Nhập cân nặng của bạn" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="206dp"
+        android:layout_height="41dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="94dp"
+        android:layout_marginTop="494dp"
+        android:layout_marginEnd="111dp"
+        android:layout_marginBottom="69dp"
+        android:background="@color/teal_200"
+        android:text="ĐĂNG KÝ"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>
