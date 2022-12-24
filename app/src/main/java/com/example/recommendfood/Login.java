@@ -61,10 +61,10 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(Login.this, Register.class);
-                startActivity(intent);
+//                Intent intent = new Intent(Login.this, Register.class);
+//                startActivity(intent);
 
-                Intent myIntent = new Intent(Login.this, FoodCRUD.class);
+                Intent myIntent = new Intent(Login.this, Question.class);
                 myIntent.putExtra("key", '1'); //Optional parameters
                 Login.this.startActivity(myIntent);
 

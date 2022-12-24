@@ -13,23 +13,29 @@
         android:theme="@style/Theme.RecommendFood"
         tools:targetApi="31">
         <activity
-
-
+            android:name=".QuestionCRUD"
+            android:exported="false"
+            android:label="@string/title_activity_question_crud"
+            android:theme="@style/Theme.RecommendFood.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Register"
-
-
-
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-
-
-
-
-
+            android:name=".Question"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".CategoryCRUD"
             android:exported="false">
             <meta-data
@@ -37,7 +43,6 @@
                 android:value="" />
         </activity>
         <activity
-
             android:name=".FoodCRUD"
             android:exported="false">
             <meta-data
@@ -46,21 +51,7 @@
         </activity>
 
         <activity
-            android:name=".TestActivy"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".ShowFood"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".Question"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

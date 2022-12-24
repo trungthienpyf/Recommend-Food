@@ -183,7 +183,7 @@ public class FoodCRUD extends AppCompatActivity {
     private  void getAllUser(){
 
         List<CategoryAndFood> allList=AppDatabase.getInstance(this).foodDao().categoryAndFood();
-        //mListUser=AppDatabase.getInstance(this).foodDao().getAllFood();
+
         categoryList=AppDatabase.getInstance(this).categoryFoodDao().getAllCategory();
         spinnerList=new ArrayList<>();
         for (int i = 0; i<categoryList.size(); i++) {

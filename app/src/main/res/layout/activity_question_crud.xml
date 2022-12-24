@@ -6,35 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".CategoryCRUD"
     android:orientation="vertical"
-    android:background="@color/white"
     >
     <EditText
-        android:id="@+id/namecate"
+        android:id="@+id/edt_question_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tên món" />
+        android:hint="Nội dung câu hỏi" />
+    <EditText
+        android:id="@+id/edt_answer_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Đáp án 1" />
+    <EditText
+        android:id="@+id/edt_answer_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Đáp án 2" />
+    <EditText
+        android:id="@+id/edt_answer_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Đáp án 3" />
 
     <Button
+        android:id="@+id/btn_add_question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Them loai mon"
-        android:id="@+id/btnaddloai"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="du doan"
-        android:id="@+id/btndudoan"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/black"
-        android:id="@+id/txtViewtest"/>
-
+        android:text="Thêm loại món" />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_category"
+        android:id="@+id/rcv_question"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_marginTop="5dp"></androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

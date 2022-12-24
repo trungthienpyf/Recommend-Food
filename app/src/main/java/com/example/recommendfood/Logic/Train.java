@@ -1,48 +1,20 @@
-package com.example.recommendfood;
+package com.example.recommendfood.Logic;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.recommendfood.Adapter.CategoryFoodAdapter;
-
-import com.example.recommendfood.DataBase.AppDatabase;
-import com.example.recommendfood.Logic.Logic;
-import com.example.recommendfood.Logic.Node;
 
 import com.example.recommendfood.Model.CategoryFood;
 
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class CategoryCRUD extends AppCompatActivity {
+public class Train {
 
-    EditText edtName;
-
-    Button btnAddCategory;
-    RecyclerView rcvUser;
-    CategoryFood categoryFood;
-    Button dudoan;
-    CategoryFoodAdapter categoryFoodAdapter;
-    List<CategoryFood> mListUser;
-
-
-    //test-------------------------------
-   // treeHead Hnode;
     Node node;
     //CategoryFood categoryFood;
-    List<CategoryFood> mListcategory = new ArrayList<CategoryFood>();
+//    List<CategoryFood> mListcategory = new ArrayList<CategoryFood>();
     List<CategoryFood> mListcategoryleaf = new ArrayList<CategoryFood>();
     List<Node> mListnode =new ArrayList<Node>();
     TextView txtTest;
@@ -52,97 +24,12 @@ public class CategoryCRUD extends AppCompatActivity {
     //mangcauhoi
     HashMap<String,String> mCauhoil;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_category_crud);
-        initUi();
-        categoryFoodAdapter =new CategoryFoodAdapter();
-        mListUser=new ArrayList<>();
-        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this);
-        rcvUser.setLayoutManager(linearLayoutManager);
-        rcvUser.setAdapter(categoryFoodAdapter);
-         //AppDatabase.getInstance(this).categoryFoodDao().deletaAll();
-//        categoryFood = new CategoryFood("Mon banh muffin");
-//        AppDatabase.getInstance(this).categoryFoodDao().insertCategory(categoryFood);
-//        categoryFood = new CategoryFood("Mon banh bong lan");
-//        AppDatabase.getInstance(this).categoryFoodDao().insertCategory(categoryFood);
-//        categoryFood = new CategoryFood("Mon nuong");
-//        AppDatabase.getInstance(this).categoryFoodDao().insertCategory(categoryFood);
-//        categoryFood = new CategoryFood("Mon ga");
-//        AppDatabase.getInstance(this).categoryFoodDao().insertCategory(categoryFood);
-//        categoryFood = new CategoryFood("Mon banh man");
-//        AppDatabase.getInstance(this).categoryFoodDao().insertCategory(categoryFood);
-//        categoryFood = new CategoryFood("Mon chocolate");
-//        AppDatabase.getInstance(this).categoryFoodDao().insertCategory(categoryFood);
-//        categoryFood = new CategoryFood("Mon matcha");
-//        AppDatabase.getInstance(this).categoryFoodDao().insertCategory(categoryFood);
-//        categoryFood = new CategoryFood("Mon ca");
-//        AppDatabase.getInstance(this).categoryFoodDao().insertCategory(categoryFood);
-//        categoryFood = new CategoryFood("Mon kem");
-//        AppDatabase.getInstance(this).categoryFoodDao().insertCategory(categoryFood);
-//        categoryFood = new CategoryFood("Mon hat");
-//        AppDatabase.getInstance(this).categoryFoodDao().insertCategory(categoryFood);
-//        categoryFood = new CategoryFood("Mon nuoc");
-//        AppDatabase.getInstance(this).categoryFoodDao().insertCategory(categoryFood);
-//        mListUser= AppDatabase.getInstance(this).categoryFoodDao().getAllCategory();
-//        categoryFoodAdapter.setData(mListUser);
-
-        getAllUser();
-        btnAddCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                addCate();
-            }
-        });
-
-        dudoan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logicfunc();
-                //txtTest.setText("hello");
-            }
-        });
-
-    }
-
-    private void addCate() {
-
-        String strName = edtName.getText().toString().trim();
-
-        if(TextUtils.isEmpty(strName)){
-            return;
-        }
-
-        CategoryFood user =new CategoryFood(strName);
-        AppDatabase.getInstance(this).categoryFoodDao().insertCategory(user);
-        Toast.makeText(this,"Add user success fully",Toast.LENGTH_SHORT).show();
-        edtName.setText("");
-
-
-        getAllUser();
-    }
-    public   void getAllUser(){
-        mListUser= AppDatabase.getInstance(this).categoryFoodDao().getAllCategory();
-        Toast.makeText(this,"show",Toast.LENGTH_SHORT).show();
-        categoryFoodAdapter.setData(mListUser);
-    }
-    public void initUi(){
-        edtName=findViewById(R.id.namecate);
-        dudoan = findViewById(R.id.btndudoan);
-        btnAddCategory=findViewById(R.id.btnaddloai);
-        rcvUser=findViewById(R.id.rcv_category);
-        txtTest=findViewById(R.id.txtViewtest);
-
-    }
-
-    public void logicfunc()
+    public String logicfunc(List<CategoryFood> mListcategory,List<String> listAnswer)
     {
-        mListcategory = new ArrayList<CategoryFood>();
+       // mListcategory = new ArrayList<CategoryFood>();
         mListnode = new ArrayList<Node>();
-        mListcategory = AppDatabase.getInstance(this).categoryFoodDao().getAllCategory();
+//        mListcategory = AppDatabase.getInstance(this).categoryFoodDao().getAllCategory();
         node = new Node(0,mListcategory,"Do tuoi");
         mListnode.add(node);
 
@@ -500,11 +387,19 @@ public class CategoryCRUD extends AppCompatActivity {
         mListnode.get(14).AddNodeNext(node);
 
         mCauhoil = new HashMap<String,String>();
-        mCauhoil.put("Do tuoi","thanhnien");
-        mCauhoil.put("Cam xuc","tucgian");
-        mCauhoil.put("Mau","sang");
-        mCauhoil.put("Gioi tinh","nam");
-        mCauhoil.put("Vi giac","man");
+
+
+        mCauhoil = new HashMap<String,String>();
+
+
+        List<String> key=  Arrays.asList("Do tuoi", "Cam xuc", "Mau",  "Vi giac","Gioi tinh");
+
+        for(int i=0; i<key.size();i++){
+
+            mCauhoil.put(key.get(i),listAnswer.get(i));
+            Log.d("test", key.get(i)+" "+listAnswer.get(i));
+        }
+
 
 
 
@@ -530,13 +425,8 @@ public class CategoryCRUD extends AppCompatActivity {
         for (CategoryFood food : mlistend) {
             finaltest += " "+food.getName();
         }
-        txtTest.setText(finaltest);
-
-
-
-
-
-
+       // txtTest.setText(finaltest);
+        return finaltest;
 //            if(logic.duyet(logic.getListNode().get(0)) == null){
 //                txtTest.setText("NULL");
 //
