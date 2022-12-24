@@ -93,12 +93,12 @@ public class Login extends AppCompatActivity {
 //                Intent intent = new Intent(Login.this, Register.class);
 //                startActivity(intent);
 
-<<
 
-==
+
+
                 Intent myIntent = new Intent(Login.this, Register.class);
                 //myIntent.putExtra("key", '1'); //Optional parameters
->>
+
                 Login.this.startActivity(myIntent);
 
             }
