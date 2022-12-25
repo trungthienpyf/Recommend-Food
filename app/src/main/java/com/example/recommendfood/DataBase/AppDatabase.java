@@ -21,7 +21,7 @@ import com.example.recommendfood.Model.User;
 }, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
-    private static final String DATABASE_NAME="Recommend1551811.db";
+    private static final String DATABASE_NAME="RecommendSystem.db";
 
     private static AppDatabase instance;
 

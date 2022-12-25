@@ -7,12 +7,12 @@
     android:orientation="vertical"
     tools:context=".ShowFood">
 
+
     <ImageView
         android:id="@+id/imageShow"
         android:layout_width="424dp"
         android:layout_height="210dp"
         tools:srcCompat="@tools:sample/avatars" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,13 +30,29 @@
             android:id="@+id/caloShow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tên món ăn"
+            android:text="Calo"
             android:textSize="18dp" />
         <TextView
             android:id="@+id/linkShow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tên món ăn"
+            android:text="Đường link gợi ý"
             android:textSize="18dp" />
     </LinearLayout>
+
+    <Button
+
+        android:id="@+id/btn_back"
+        android:layout_width="61dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+
+
+        android:drawableLeft="@drawable/ic_baseline_home_24"
+
+
+        />
+
+
 </RelativeLayout>
